@@ -33,7 +33,6 @@ export default {
         this.$emit('change_show', 'login')
       },
       register() {
-        console.log(this.email, this.password, 'asup ti register');
         axios({
           url: '/users/register',
           method: 'post',
@@ -43,7 +42,7 @@ export default {
           this.goToLogin()
         })
         .catch(err => {
-          console.log(err.response, 'asup ti catch');
+          console.log(err.response);
         })
       }
     }

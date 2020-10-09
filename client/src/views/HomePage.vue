@@ -14,110 +14,78 @@
         Log Out
       </button>
     </div>
-    <!-- <div>
-      <div class="columns">
-        <div class="column">
-          <p>First column</p>
-          <ul class="fixed-content hidden-scrollbar task-container belum">
-          <Task @reFetch="reFetch" v-for="task in toDo" :key="task.id" :task='task'></Task>
-          </ul>
-        </div>
-        <div class="column">
-          Second column
-          <ul class="fixed-content hidden-scrollbar task-container lagi">
-            <Task @reFetch="reFetch" v-for="task in onProgress" :key="task.id" :task='task'></Task>
-          </ul>
-        </div>
-        <div class="column">
-          Third column
-          <ul class="fixed-content hidden-scrollbar task-container udah">
-            <Task @reFetch="reFetch" v-for="task in done" :key="task.id" :task='task'></Task>
-          </ul>
-        </div>
-        <div id="weather"></div>
-      </div>
-    </div> -->
     <div id="container-task">
-      <div class="tasks-categories">
-        <div class="tasks-category button is-warning is-fullwidth">
-          Back-Log
-        </div>
-        <div class="fixed-content hidden-scrollbar">
-          <Task @reFetch="reFetch" v-for="task in backLog" :key="task.id" :task='task'></Task>
-        </div>
-      </div>
-
-      <div class="tasks-categories" >
-        <div class="tasks-category">
-          To-Do
-        </div>
-        <div class="fixed-content hidden-scrollbar">
-          <Task @reFetch="reFetch" v-for="task in toDo" :key="task.id" :task='task'></Task>
-        </div>
-      </div>
-
-      <div class="tasks-categories" >
-        <div class="tasks-category">
-          Doing
-        </div>
-        <div class="fixed-content hidden-scrollbar">
-          <Task @reFetch="reFetch" v-for="task in doing" :key="task.id" :task='task'></Task>
-        </div>
-      </div>
-
-      <div class="tasks-categories" >
-        <div class="tasks-category">
-          Done
-        </div>
-        <div class="fixed-content hidden-scrollbar">
-          <Task @reFetch="reFetch" v-for="task in done" :key="task.id" :task='task'></Task>
-        </div>
-      </div>
+      <Category
+        title="Back-Log"
+        buttonColor="is-primary"
+        :tasks="backLog"
+        @reFetch="reFetch"
+      ></Category>
+      <Category
+        title="To-Do"
+        buttonColor="is-link"
+        :tasks="toDo"
+        @reFetch="reFetch"
+      ></Category>
+      <Category
+        title="Doing"
+        buttonColor="is-info"
+        :tasks="doing"
+        @reFetch="reFetch"
+      ></Category>
+      <Category
+        title="Done"
+        buttonColor="is-success"
+        :tasks="done"
+        @reFetch="reFetch"
+      ></Category>
     </div>
   </section>
 </template>
 
 <script>
 import axios from "../config/axios";
-import Task from "../component/taskCard"
+import Category from "../component/categoryCard";
 export default {
   name: "homepage",
   components: {
-    Task
+    Category,
   },
   data() {
     return {
       backLog: [],
       toDo: [],
       doing: [],
-      done: []
-    }
+      done: [],
+    };
   },
   methods: {
     logout() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log("User signed out.");
+      });
       localStorage.clear();
       this.$emit("change_show", "login");
     },
     allTasks() {
-      console.log("asup ti all task");
       axios({
         url: "/tasks",
         method: "get",
         headers: { token: localStorage.token },
       })
         .then((data) => {
-          console.log(data.data, 'asup ti then');
-          data.data.data.forEach(element => {
-            if(element.category == 'Back-Log') {
-              this.backLog.push(element)
-            }else if(element.category == 'To-Do') {
-              this.toDo.push(element)
-            }else if(element.category == 'Doing') {
-              this.doing.push(element)
-            } else if (element.category == 'Done') {
-              this.done.push(element)
+          data.data.data.forEach((element) => {
+            if (element.category == "Back-Log") {
+              this.backLog.push(element);
+            } else if (element.category == "To-Do") {
+              this.toDo.push(element);
+            } else if (element.category == "Doing") {
+              this.doing.push(element);
+            } else if (element.category == "Done") {
+              this.done.push(element);
             }
-          })
+          });
         })
         .catch((err) => {
           console.log(err.response);
@@ -127,15 +95,14 @@ export default {
       this.$emit("change_show", "addtaskform");
     },
     reFetch() {
-      this.backLog = []
-      this.toDo = []
-      this.doing = []
-      this.done = []
-      this.allTasks()
-    }
+      this.backLog = [];
+      this.toDo = [];
+      this.doing = [];
+      this.done = [];
+      this.allTasks();
+    },
   },
   mounted: function () {
-    console.log("asup ti mounted homepage");
     this.allTasks();
   },
 };

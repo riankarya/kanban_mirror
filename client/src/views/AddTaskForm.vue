@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     addTask() {
-      console.log('asup ti axios addtaskform');
       axios({
         url: '/tasks',
         method: 'post',

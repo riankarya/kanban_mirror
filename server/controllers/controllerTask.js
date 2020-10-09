@@ -1,9 +1,8 @@
-const { Task } = require('../models')
+const { Task, User } = require('../models')
 const Helper = require('../helpers/tanggalBetul')
 
 class Controller {
     static addTasks(req, res, next) {
-        console.log('asup ti controller add task');
         const UserId = req.loggedUser.id
         const { title, description, category } = req.body
         const obj = { title, description, category, UserId }
@@ -16,7 +15,9 @@ class Controller {
             })
     }
     static tasks(req, res, next) {
-        Task.findAll({where: {UserId: req.loggedUser.id}})
+        Task.findAll({order: [['id', 'DESC']], include: [{
+            model: User
+        }]})
             .then(data => {
                 res.status(200).json({ data })
             })
@@ -26,7 +27,6 @@ class Controller {
         const id = +req.params.id
         Task.findOne({ where: { id } })
             .then(data => {
-                console.log(data);
                 if(!data) throw {name: 'TaskNotFound', error: "not found" }
                 res.status(200).json({ data })
             })
@@ -34,8 +34,8 @@ class Controller {
     }
     static editAllTasks(req, res, next) {
         const id = +req.params.id
-        const { title, description, category } = req.body
-        const obj = { title, description, category }
+        const { title, description } = req.body
+        const obj = { title, description }
         Task.update(obj, { where: { id } })
             .then(_=> {
                 return Task.findOne({where: {id}})
@@ -47,7 +47,6 @@ class Controller {
             .catch(next)
     }
     static editCategoryTasks(req, res, next) {
-        console.log('asup ti controller edit status Task');
         const id = +req.params.id
         const { category } = req.body
         const obj = { category }
@@ -57,7 +56,6 @@ class Controller {
             })
             .then(data => {
                 if (!data) throw {name: 'TaskNotFound', error: "not found"}
-                console.log(data, 'DARI EDIT STATUS CONTROLLER');
                 res.status(200).json({ data })
             })
             .catch(next)

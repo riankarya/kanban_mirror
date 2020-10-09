@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h1>halo dunia</h1>
     <Register v-if="show == 'register'" @change_show="changeShow"></Register>
     <Login v-else-if="show == 'login'" @change_show="changeShow"></Login>
     <HomePage
@@ -34,12 +33,10 @@ export default {
   },
   methods: {
     changeShow(page) {
-      console.log(page, "asupp ti app.vue");
       this.show = page;
     },
   },
   mounted: function () {
-    console.log("asup ti mounted");
     if (localStorage.token) {
       this.changeShow("homepage");
     }
