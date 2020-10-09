@@ -127,8 +127,9 @@ export default {
       this.$emit("change_show", "addtaskform");
     },
     reFetch() {
+      this.backLog = []
       this.toDo = []
-      this.onProgress = []
+      this.doing = []
       this.done = []
       this.allTasks()
     }
