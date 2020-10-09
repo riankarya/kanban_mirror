@@ -1,0 +1,136 @@
+body {
+    background-image: url("https://www.xmple.com/wallpaper/white-gradient-blue-linear-2880x1800-c2-87cefa-ffe4e1-a-90-f-14.svg");
+    background-color: #cccccc;
+    height: 100vh;
+    padding: 20px !important;
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+   }
+
+.logreg-page {
+    width: 300px;
+}
+
+.fixed-content {
+    top: 150px;
+    bottom:0;
+    max-height: 60vh;
+    min-width: 100%;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    margin-top: 10px;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.content {
+    margin-bottom: 0;
+    border: black ;
+}
+
+.card-task-list {
+    margin: 20px;
+    max-width: 100%;
+}
+
+.mar {
+    margin-top: 20px;
+  }
+    
+#navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.columns {
+    margin: 10px;
+    display: inline-flex;
+    max-width: 100%;
+    min-width: 100%;
+}
+.column {
+    margin: 20px;
+    text-align: center;
+    border: black;
+}
+
+.list-task {
+    text-align: left;
+}
+
+.task-container {
+    text-align: center;
+}
+
+#weather-content p{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+#weather-content h4{
+    margin: 0;
+    padding: 0;
+}
+#weather{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;    
+}
+
+
+
+
+#container-task {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    position: fixed;
+}
+.tasks-categories {
+    width: 100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.arrow {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.rotateimg180 {
+    -webkit-transform:rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+.card-footer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.shrink1 {
+    display: flex;
+    flex-shrink: 1;
+}
