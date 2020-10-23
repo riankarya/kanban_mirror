@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import axios from "../config/axios";
 import Category from "../component/categoryCard";
 export default {
   name: "homepage",
@@ -69,27 +68,7 @@ export default {
       this.$emit("change_show", "login");
     },
     allTasks() {
-      axios({
-        url: "/tasks",
-        method: "get",
-        headers: { token: localStorage.token },
-      })
-        .then((data) => {
-          data.data.data.forEach((element) => {
-            if (element.category == "Back-Log") {
-              this.backLog.push(element);
-            } else if (element.category == "To-Do") {
-              this.toDo.push(element);
-            } else if (element.category == "Doing") {
-              this.doing.push(element);
-            } else if (element.category == "Done") {
-              this.done.push(element);
-            }
-          });
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+      this.$emit("all_task")
     },
     addTaskForm() {
       this.$emit("change_show", "addtaskform");
