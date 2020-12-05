@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import axios from "../config/axios";
 import Category from "../component/categoryCard";
 export default {
   name: "homepage",
@@ -90,7 +91,6 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-      this.$emit("all_task")
     },
     addTaskForm() {
       this.$emit("change_show", "addtaskform");
