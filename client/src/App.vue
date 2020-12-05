@@ -5,6 +5,7 @@
     <HomePage
       v-else-if="show == 'homepage'"
       @change_show="changeShow"
+      @all_task="allTask"
     ></HomePage>
     <AddTaskForm
       v-else-if="show == 'addtaskform'"
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import axios from "../config/axios";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import HomePage from "./views/HomePage";
@@ -35,6 +37,29 @@ export default {
     changeShow(page) {
       this.show = page;
     },
+    allTasks() {
+      axios({
+        url: "/tasks",
+        method: "get",
+        headers: { token: localStorage.token },
+      })
+        .then((data) => {
+          data.data.data.forEach((element) => {
+            if (element.category == "Back-Log") {
+              this.backLog.push(element);
+            } else if (element.category == "To-Do") {
+              this.toDo.push(element);
+            } else if (element.category == "Doing") {
+              this.doing.push(element);
+            } else if (element.category == "Done") {
+              this.done.push(element);
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
   },
   mounted: function () {
     if (localStorage.token) {
