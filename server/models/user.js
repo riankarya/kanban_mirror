@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     email: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: {
+        args: 'email',
+        msg: 'The email is already taken!'
+      },
       validate: {
         customValidator(value) {
           let reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
@@ -49,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (user, opt) => {
         user.password = hashPassword(user.password),
-        user.organization = "Hacktiv8"
+          user.organization = "Hacktiv8"
       }
     }
   });

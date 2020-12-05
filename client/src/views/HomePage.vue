@@ -75,6 +75,7 @@ export default {
         headers: { token: localStorage.token },
       })
         .then((data) => {
+          console.log(data, 'asup ti client')
           data.data.data.forEach((element) => {
             if (element.category == "Back-Log") {
               this.backLog.push(element);

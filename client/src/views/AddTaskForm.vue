@@ -39,7 +39,7 @@
           Submit
         </button>
       </form>
-      <button class="button is-primary" onclick="checkLogin()" type="button">
+      <button class="button is-primary" @click="homePage" id="homepage-show">
         Home Page
       </button>
     </div>
@@ -72,6 +72,9 @@ export default {
         console.log(err);
       })
     },
+    homePage() {
+      this.$emit('change_show', 'homepage')
+    }
   },
 };
 </script>

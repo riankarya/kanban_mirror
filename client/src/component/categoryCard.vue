@@ -7,6 +7,7 @@
         v-for="task in tasks"
         :key="task.id"
         :task="task"
+        nama='aldi'
       ></Task>
     </div>
   </div>

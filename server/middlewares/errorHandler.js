@@ -5,6 +5,9 @@ function errorHandler(err, req, res, next) {
             let errors = err.errors.map(elem => elem.message)
             res.status(422).json({ errors })
             break
+        case "UniqueEmailValidation":
+            res.status(422).json({ errors: [err.msg] })
+            break
         case 'AuthenticationError':
             res.status(401).json({ errors: [err.msg] })
             break
